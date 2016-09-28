@@ -30,8 +30,8 @@ def add():
   #JSON data
   # j = json.loads(request.form['data'])
   j = request.get_json()
+  j = j['data']
   data = []
-
   for i in j:
     t = (i['ipSource'], i['ipDest'], i['sid'], i['message'], i['protocol'])
     data.append(t)
