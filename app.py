@@ -19,7 +19,6 @@ mail = Mail(app)
 
 @app.route('/', methods=['GET', 'POST'])
 def hello():
-  print(str(request.form))
   return 'hello'
 
 @app.route('/db', methods=['POST'])
@@ -30,11 +29,15 @@ def add():
 
   #JSON data
   j = json.loads(request.form['data'])
-  data = (j['ipSource'], j['ipDest'], j['sid'], j['message'], j['protocol'])
+  data = []
+
+  for i in j:
+    t = (i['ipSource'], i['ipDest'], i['sid'], i['message'], i['protocol'])
+    data.append(t)
   
   #DB insertion
   query = "INSERT INTO logAlert (ipsource, ipdest, sid, message, protocol) VALUES (%s,%s,%s,%s,%s)"
-  cursor.execute(query, data)
+  cursor.executemany(query, data)
   cnx.commit()
   
   #DB Close
@@ -47,7 +50,7 @@ def add():
 def alert():
   #Mail Request Json
   j = json.loads(request.form['data'])
-  print j
+  
   #Mail
   msg = Message (subject='Alerta', 
                  body=j['message'], 
