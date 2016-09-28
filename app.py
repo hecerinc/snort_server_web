@@ -47,7 +47,7 @@ def add():
 def alert():
   #Mail Request Json
   j = json.loads(request.form['data'])
-
+  print j
   #Mail
   msg = Message (subject='Alerta', 
                  body=j['message'], 
