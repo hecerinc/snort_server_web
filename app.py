@@ -28,10 +28,11 @@ def add():
   cursor = cnx.cursor()
 
   #JSON data
-  # j = json.loads(request.form['data'])
   j = request.get_json()
-  j = j['data']
+  j = j['data']  
   data = []
+
+  #Iteration of json
   for i in j:
     t = (i['ipSource'], i['ipDest'], i['sid'], i['message'], i['protocol'])
     data.append(t)
@@ -50,11 +51,17 @@ def add():
 @app.route('/mail', methods=['POST'])
 def alert():
   #Mail Request Json
-  j = json.loads(request.form['data'])
+  j = request.get_json()
+  j = j['data']
+  data = "Las siguientes alertas se detectaron:\n"
+
+  #Iteration of json
+  for i in j:
+    data += i['message'] + '\n'
 
   #Mail
   msg = Message (subject='Alerta', 
-                 body=j['message'], 
+                 body=data, 
                  recipients=['eugenio_rangel@hotmail.com'])
   mail.send(msg)
   
