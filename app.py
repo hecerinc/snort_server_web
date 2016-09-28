@@ -17,6 +17,10 @@ app.config['MAIL_PASSWORD'] = 'alertasCITI'
 app.config['MAIL_DEFAULT_SENDER'] = 'alertas.citi@gmail.com'
 mail = Mail(app)
 
+@app.route('/')
+def hello():
+  return 'hello'
+
 @app.route('/db', methods=['POST'])
 def add():
   #DB Connection

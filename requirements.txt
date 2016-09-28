@@ -6,7 +6,6 @@ gunicorn==19.6.0
 itsdangerous==0.24
 Jinja2==2.8
 MarkupSafe==0.23
-porc==0.5.4
 six==1.10.0
 SOAPpy==0.12.22
 virtualenv==15.0.3
