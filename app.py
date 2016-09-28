@@ -19,6 +19,7 @@ mail = Mail(app)
 
 @app.route('/')
 def hello():
+  print(str(request.form))
   return 'hello'
 
 @app.route('/db', methods=['POST'])
