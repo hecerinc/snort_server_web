@@ -17,7 +17,7 @@ app.config['MAIL_PASSWORD'] = 'alertasCITI'
 app.config['MAIL_DEFAULT_SENDER'] = 'alertas.citi@gmail.com'
 mail = Mail(app)
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def hello():
   print(str(request.form))
   return 'hello'
