@@ -28,7 +28,8 @@ def add():
   cursor = cnx.cursor()
 
   #JSON data
-  j = json.loads(request.form['data'])
+  # j = json.loads(request.form['data'])
+  j = request.get_json()
   data = []
 
   for i in j:
@@ -50,7 +51,7 @@ def add():
 def alert():
   #Mail Request Json
   j = json.loads(request.form['data'])
-  
+
   #Mail
   msg = Message (subject='Alerta', 
                  body=j['message'], 
