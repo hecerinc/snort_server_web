@@ -2,6 +2,7 @@ from flask import Flask
 from flask import request
 from flask_mail import Mail
 from flask_mail import Message
+from flask import render_template
 import json
 import mysql.connector
 from os.path import join, dirname
@@ -24,10 +25,20 @@ mail = Mail(app)
 
 @app.route('/', methods=['GET', 'POST'])
 def hello():
-  return 'hello'
+  cnx = connection()
+  cursor = cnx.cursor()
 
-@app.route('/db', methods=['POST'])
-def add():
+  query="SELECT * FROM logAlert"
+  cursor.execute(query)
+
+  rs = cursor.fetchall()
+
+  cursor.close()
+  cnx.close()
+
+  return render_template('index.html', rs=rs)
+  
+def connection():
   #DB Connection
   USER = os.environ.get("MYSQLUSER")
   HOST = os.environ.get("MYSQLHOST")
@@ -35,6 +46,12 @@ def add():
   DB = os.environ.get("MYSQLDB")
   
   cnx = mysql.connector.connect(user=USER, database=DB, host=HOST, password=PASS)
+
+  return cnx
+
+@app.route('/db', methods=['POST'])
+def add():
+  cnx = connection()
   cursor = cnx.cursor()
 
   #JSON data
