@@ -1,15 +1,13 @@
-from flask import Flask
-from flask import request
-from flask_mail import Mail
-from flask_mail import Message
-from flask import render_template
+from flask import Flask, request, render_template
+from flask_mail import Mail, Message
 import json
+import os
 import mysql.connector
-from os.path import join, dirname
-from dotenv import load_dotenv
+# from os.path import join, dirname
+# from dotenv import load_dotenv
 
-dotenv_path = join(dirname(__file__), '.env')
-load_dotenv(dotenv_path)
+# dotenv_path = join(dirname(__file__), '.env')
+# load_dotenv(dotenv_path)
 
 app = Flask (__name__)
 #app.debug = True
@@ -40,10 +38,10 @@ def hello():
   
 def connection():
   #DB Connection
-  USER = os.environ.get("MYSQLUSER")
-  HOST = os.environ.get("MYSQLHOST")
-  PASS = os.environ.get("MYSQLPASS")
-  DB = os.environ.get("MYSQLDB")
+  USER = os.environ['MYSQLUSER']
+  HOST = os.environ['MYSQLHOST']
+  PASS = os.environ['MYSQLPASS']
+  DB = os.environ['MYSQLDB']
   
   cnx = mysql.connector.connect(user=USER, database=DB, host=HOST, password=PASS)
 
