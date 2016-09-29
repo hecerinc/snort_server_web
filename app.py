@@ -4,6 +4,11 @@ from flask_mail import Mail
 from flask_mail import Message
 import json
 import mysql.connector
+from os.path import join, dirname
+from dotenv import load_dotenv
+
+dotenv_path = join(dirname(__file__), '.env')
+load_dotenv(dotenv_path)
 
 app = Flask (__name__)
 #app.debug = True
@@ -24,7 +29,12 @@ def hello():
 @app.route('/db', methods=['POST'])
 def add():
   #DB Connection
-  cnx = mysql.connector.connect(user='', database='', host='', password='')
+  USER = os.environ.get("MYSQLUSER")
+  HOST = os.environ.get("MYSQLHOST")
+  PASS = os.environ.get("MYSQLPASS")
+  DB = os.environ.get("MYSQLDB")
+  
+  cnx = mysql.connector.connect(user=USER, database=DB, host=HOST, password=PASS)
   cursor = cnx.cursor()
 
   #JSON data
