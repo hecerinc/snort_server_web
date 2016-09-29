@@ -24,7 +24,7 @@ def hello():
 @app.route('/db', methods=['POST'])
 def add():
   #DB Connection
-  cnx = mysql.connector.connect(user='hrincon_capture', database='hrincon_testcapture', host='192.185.71.147', password='capture')
+  cnx = mysql.connector.connect(user='', database='', host='', password='')
   cursor = cnx.cursor()
 
   #JSON data
