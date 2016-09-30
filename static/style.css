@@ -114,3 +114,7 @@ table > tbody > tr > td:last-child {
    text-align: center;
    font-size: 18px;
 }
+
+#footer-container {
+  margin-top: 1em !important;
+}
