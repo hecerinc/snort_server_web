@@ -139,7 +139,8 @@ def alert():
   #Mail
   msg = Message (subject='Alerta', 
                  body=data, 
-                 recipients=['eugenio_rangel@hotmail.com'])
+                 recipients=['alertas.citi@gmail.com']) 
+  # david.trevino@citi.com.mx
   mail.send(msg)
   
   return json.dumps({ 'msg':'success' })
