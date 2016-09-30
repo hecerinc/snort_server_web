@@ -3,14 +3,13 @@ from flask_mail import Mail, Message
 import json
 import os
 import mysql.connector
-# from os.path import join, dirname
 from dotenv import load_dotenv
 
 dotenv_path = './.env'
 load_dotenv(dotenv_path)
 
 app = Flask (__name__)
-#app.debug = True
+app.debug = True
 
 #Mailer setup
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
@@ -26,15 +25,63 @@ def hello():
   cnx = connection()
   cursor = cnx.cursor()
 
-  query="SELECT * FROM logAlert"
+  #Get all rows
+  query="SELECT protocol, ipsource, ipdest, message FROM logAlert ORDER BY timeStamp Desc"
   cursor.execute(query)
-
   rs = cursor.fetchall()
+
+  #Get row count of last 24 hours
+  query="SELECT count(*) FROM logAlert WHERE timeStamp>DATE_SUB(NOW(),INTERVAL 1 DAY);"
+  cursor.execute(query)
+  rowcount = cursor.fetchone()
+
+  typeCount = []
+
+  #Count per type
+  query="SELECT count(*) FROM logAlert;"
+  cursor.execute(query)
+  allRows = cursor.fetchone()[0]
+
+  query="SELECT count(*) FROM logAlert WHERE protocol='TCP';"
+  cursor.execute(query)
+  typeCount.append((1.0*cursor.fetchone()[0]/allRows)*100)
+
+  query="SELECT count(*) FROM logAlert WHERE protocol='ICMP';"
+  cursor.execute(query)
+  typeCount.append((1.0*cursor.fetchone()[0]/allRows)*100)
+
+  query="SELECT count(*) FROM logAlert WHERE protocol='UDP';"
+  cursor.execute(query)
+  typeCount.append((1.0*cursor.fetchone()[0]/allRows)*100)
+
+  query="SELECT count(*) FROM logAlert WHERE protocol='IP';"
+  cursor.execute(query)
+  typeCount.append((1.0*cursor.fetchone()[0]/allRows)*100)
+
+  json_type = json.dumps(typeCount)
+
+  #Timestamps
+  timestamps = []
+
+  query="SELECT date_format(timeStamp, '%m/%d/%Y %l:%i %p') time FROM logAlert ORDER BY timeStamp Desc"
+  cursor.execute(query)
+  time = cursor.fetchone()
+  while time is not None:
+    timestamps.append(str(time[0]))
+    time = cursor.fetchone()
+  
+  timestamps = json.dumps(timestamps)
+
+  #SID Links
+  query="SELECT sid FROM logAlert ORDER BY timeStamp Desc"
+  cursor.execute(query)
+  links = cursor.fetchall()
+  links = json.dumps(links)
 
   cursor.close()
   cnx.close()
 
-  return render_template('index.html', rs=rs)
+  return render_template('index.html', rs=rs, rowcount=rowcount, json_type=json_type, timestamps=timestamps, links=links)
   
 def connection():
   #DB Connection

@@ -1,10 +1,114 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
-<head>
-	<title></title>
-</head>
-<body>
-	{% for (message) in rs: 
-		print (message) %}
-</body>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html"  charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+    <script src="{{ url_for('static', filename='jquery-3.1.0.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap.js') }}"></script>
+    <script src="{{ url_for('static', filename='highcharts.js') }}"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  </head>
+
+  <body>
+  <div class="container">
+
+    <div id="header">
+      <div class="header clearfix">
+        <img class="pull-left" src="/static/chow-chow.png" width="64" height="55">
+        <h2 class="text-muted">Chow Chow</h2>
+      </div>
+    </div>
+
+    <!-- Highcharts !-->
+    <div class="row headboxs">
+      <div class="col-md-4">
+        <div class="headbox headbox-chart">
+          <span class="incident-count" ></span>
+          <div class="chart" id="chart"  style="width:100%; height: 250px;"></div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="headbox">
+          <div class="headbox-title"><span>Last 24 hours count</span></div>
+          <h1 class="text-center incident-count-num">{{ rowcount[0] }}</h1>
+          <img class="chart-img"  src="/static/bar-chart.png" width="300" height="120">
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="headbox incident-count">
+          <div class="headbox-title"><span>Top 5 Attacks</span></div>
+            <div class="row">
+              <div class="col-md-12">
+                <ol class="alert-list">
+                  <li class="alert-element">
+                    <a href="#" class="alert-link">ICMP</a>
+                  </li>
+                  <li class="alert-element">
+                    <a href="#" class="alert-link">ICMP</a>
+                  </li>
+                  <li class="alert-element">
+                    <a href="#" class="alert-link">ICMP</a>
+                  </li>
+                  <li class="alert-element">
+                    <a href="#" class="alert-link">ICMP</a>
+                  </li>
+                  <li class="alert-element">
+                    <a href="#" class="alert-link">ICMP</a>
+                  </li>
+                </ol>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+      <div class="row ">
+        <div class="col-md-12">
+          <div class="contenido-header">
+            <h2>Lista Incidentes Seguridad</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="contenido-table">
+            <div id="table">
+              <table class="table table-bordered table-striped table-hover">
+                <thead>
+                  <th class="col-md-1">Timestamp</th>
+                  <th class="col-md-1">Protocol</th>
+                  <th class="col-md-1">Source</th>
+                  <th class="col-md-1">Destination</th>
+                  <th class="col-md-6"> Tipo</th>
+                </thead>
+                <tbody>
+                {% for (protocol, ipsource, ipdest, message) in rs: %}
+                  <tr>
+                    <td><i class="glyphicon glyphicon-time"></i></td>
+                    <td> {{ protocol }}</td>
+                    <td> {{ ipsource }} </td>
+                    <td> {{ ipdest }} </td>
+                    <td> <a class="sid" href="sid_url"> {{ message }} </a> </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      var data = {{ json_type }};
+      {% autoescape false %}
+      var all_timestamps = {{ timestamps }};
+      var all_links = {{ links }};
+      {% endautoescape %}
+    </script>
+  </body>
 </html>

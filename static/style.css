@@ -1,0 +1,116 @@
+.headbox{
+  background:white;
+  height:300px;
+  /*padding: .5em;*/
+  padding: 20px !important;
+}
+
+.header{
+  margin-top:1em;
+  margin-bottom: 3em;
+}
+
+.header img{
+  margin-right: 15px;
+}
+
+.header h2 {
+  font-size: 48px;
+  margin-top: 2px;
+  color: white;
+}
+
+.headbox-chart{
+  pading: 0em;
+  background:white;
+  height:300px;
+}
+.headboxs{
+  margin-top:1em;
+  margin-bottom:2em;
+}
+.contenido-header {
+  background: white;
+  padding-left: 5em;
+  padding-bottom: .5em;
+  padding-top: .2em;
+  letter-spacing: .15em;
+  color: black;
+  text-transform: uppercase;
+}
+.contenido-table {
+  background: white;
+}
+#table{
+  margin: 0;
+  margin-left: 7.5%;
+  width: 85%;
+  padding-top: 1em;
+  padding-bottom: 1em;
+
+}
+
+.incident-count-num {
+  font-weight: normal;
+  color: inherit;
+  margin-top: .5em;
+  font-size: 50px;
+
+}
+
+.headbox-title{
+  box-sizing: border-box;
+  color: rgb(51, 51, 51);
+  fill: rgb(51, 51, 51);
+  font-family: "Lucida Grande","Lucida Sans Unicode",Arial,Helvetica,sans-serif;
+  font-size: 18px;
+  letter-spacing: 1.88333px;
+  line-height: 20px;
+  text-align:center;
+
+
+}
+
+.alert-list {
+  margin-top: .5em;
+  margin-bottom: .5em;
+  padding: 15px;
+}
+
+.alert-element {
+  color: #333;
+  font-weight: bold;
+  font-size: 135%;
+  padding: .5em 0;
+}
+
+.alert-link {
+  color: #333;
+}
+.chart-img{
+
+  margin-top: 2em;
+}
+.h-divider{
+ padding-top: .5em;
+ margin-top:5px;
+ margin-bottom:5px;
+ height:1px;
+ width:94%;
+ border-top:1px solid gray;
+}
+table > tbody > tr > td:nth-child(3), table > tbody > tr >  td:nth-child(4) {
+  text-align: left;
+  font-size: 18px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+table > tbody > tr > td:last-child {
+  text-align: left;
+  font-size: 18px;
+  padding-left: 20px;
+}
+.table td,th {
+   text-align: center;
+   font-size: 18px;
+}
