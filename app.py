@@ -78,10 +78,15 @@ def hello():
   links = cursor.fetchall()
   links = json.dumps(links)
 
+  #Count by message
+  query="SELECT message,count(message) FROM logAlert GROUP BY message LIMIT 5"
+  cursor.execute(query)
+  topalerts = cursor.fetchall()
+
   cursor.close()
   cnx.close()
 
-  return render_template('index.html', rs=rs, rowcount=rowcount, json_type=json_type, timestamps=timestamps, links=links)
+  return render_template('index.html', rs=rs, rowcount=rowcount, json_type=json_type, timestamps=timestamps, links=links, topalerts=topalerts)
   
 def connection():
   #DB Connection

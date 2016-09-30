@@ -56,15 +56,22 @@ $(function () {
 
         //time hover
         var elements = $(".glyphicon.glyphicon-time");
+        var link_string;
 
         for (i = 0; i < elements.length ;i++){
             elements[i].setAttribute('title',all_timestamps[i]);
         }
 
+        //link modification
         var links = $(".sid");
         for (i = 0; i < links.length; i++){
-            all_links[i] = all_links[i].substring(2, all_links[i].length() - 2)
-            links[i].setAttribute('href', 'https://www.snort.org/rule_docs/1-' + all_links[i]);
+            all_links[i][0] = all_links[i][0].substring(2, all_links[i][0].length - 2)
+            links[i].href = 'https://www.snort.org/rule_docs/1-' + all_links[i][0];
         }
+
+        //Pagination
+        $('#alert-table').DataTable({
+            "iDisplayLength": 50
+        });
     });
 });

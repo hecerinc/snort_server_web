@@ -9,6 +9,8 @@
     <script src="{{ url_for('static', filename='highcharts.js') }}"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
   </head>
 
   <body>
@@ -40,25 +42,15 @@
 
       <div class="col-md-4">
         <div class="headbox incident-count">
-          <div class="headbox-title"><span>Top 5 Attacks</span></div>
+          <div class="headbox-title"><span>Top Attacks</span></div>
             <div class="row">
               <div class="col-md-12">
                 <ol class="alert-list">
+                  {% for (message) in topalerts: %}
                   <li class="alert-element">
-                    <a href="#" class="alert-link">ICMP</a>
+                    <p class="alert-link">{{ message[0] }}</p>
                   </li>
-                  <li class="alert-element">
-                    <a href="#" class="alert-link">ICMP</a>
-                  </li>
-                  <li class="alert-element">
-                    <a href="#" class="alert-link">ICMP</a>
-                  </li>
-                  <li class="alert-element">
-                    <a href="#" class="alert-link">ICMP</a>
-                  </li>
-                  <li class="alert-element">
-                    <a href="#" class="alert-link">ICMP</a>
-                  </li>
+                  {% endfor %}
                 </ol>
               </div>
             </div>
@@ -78,7 +70,7 @@
         <div class="col-md-12">
           <div class="contenido-table">
             <div id="table">
-              <table class="table table-bordered table-striped table-hover">
+              <table id="alert-table" class="table table-bordered table-striped table-hover">
                 <thead>
                   <th class="col-md-1">Timestamp</th>
                   <th class="col-md-1">Protocol</th>
